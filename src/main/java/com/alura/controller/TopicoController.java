@@ -2,6 +2,7 @@ package com.alura.controller;
 
 import com.alura.modelo.curso.Curso;
 import com.alura.modelo.curso.CursoRepository;
+import com.alura.modelo.respuesta.RespuestaRepository;
 import com.alura.modelo.topico.*;
 import com.alura.modelo.usuario.Usuario;
 import com.alura.modelo.usuario.UsuarioRespository;
@@ -27,6 +28,9 @@ public class TopicoController {
 
     @Autowired
     TopicoRespository topicoRespository;
+
+    @Autowired
+    RespuestaRepository respuestaRepository;
 
     @PostMapping
     @Transactional
@@ -57,6 +61,15 @@ public class TopicoController {
         Topico topico = topicoRespository.getReferenceById(datos.topicoId());
         DatosRespuestaTopico datosRespuestaTopico = registrarTopicoService.actualizarTopico(new DatosRegistroTopico(datos.titulo() , datos.mensaje(), topico.getAutor().getId() ,topico.getCurso().getId()), topico);
         return ResponseEntity.ok(datosRespuestaTopico);
+    }
+
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity cerrarTopico(@PathVariable Long id){
+        Topico topico = topicoRespository.getReferenceById(id);
+        topico.cerrarTopico();
+        return ResponseEntity.noContent().build();
     }
 
 }
