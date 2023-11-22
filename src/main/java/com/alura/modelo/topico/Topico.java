@@ -66,6 +66,19 @@ public class Topico {
 		}
 
 	}
+
+	public void actualizarTopico(DatosRegistroTopico datos){
+
+		if(datos.titulo() != null){
+			this.titulo = datos.titulo();
+		}
+
+		if (datos.mensaje() != null){
+			this.mensaje = datos.mensaje();
+		}
+
+	}
+
 	public void cerrarTopico() {
 		this.status = StatusTopico.CERRADO;
 	}

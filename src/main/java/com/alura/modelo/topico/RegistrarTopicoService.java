@@ -39,4 +39,13 @@ public class RegistrarTopicoService {
 
     }
 
+    public DatosRespuestaTopico actualizarTopico(DatosRegistroTopico datos, Topico topico){
+
+        validadores.forEach(v->v.validar(datos));
+
+        topico.actualizarTopico(datos);
+
+        return new DatosRespuestaTopico(topico);
+    }
+
 }
